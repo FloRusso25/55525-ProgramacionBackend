@@ -1,0 +1,13 @@
+{
+  "name": "class",
+  "version": "1.0.0",
+  "description": "ECMAScript class",
+  "main": "app.js",
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Florencia Russo",
+  "license": "ISC",
+  "type": "module"
+}
