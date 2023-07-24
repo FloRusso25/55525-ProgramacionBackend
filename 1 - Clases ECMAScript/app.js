@@ -33,7 +33,7 @@ let products = productManager.getProducts()
 console.log(`Available products: \n ${JSON.stringify(products)}`)
 
 //Add product1 to array of products
-onsole.log(`Adding product1`)
+console.log(`Adding product1`)
 productManager.addProduct(product1)
 
 //Print array of products with product1

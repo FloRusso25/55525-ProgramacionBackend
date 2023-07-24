@@ -17,9 +17,9 @@ export default class ProductManager {
     addProduct(addProduct) {
         if (this.validateMandatoryProperties(addProduct)) {
             
-            const codeArray = (this.products).filter(product => product.code == addProduct.code)
+            const codeArray = (this.products).find(product => product.code == addProduct.code)
 
-            if (!codeArray.length) {
+            if (!codeArray) {
                 addProduct.id = this.id +1
                 this.id = addProduct.id
                 
@@ -35,9 +35,9 @@ export default class ProductManager {
     }
 
     getProductById(productId) {
-        const productById = (this.products).filter(product => product.id == productId)
+        const productById = (this.products).find(product => product.id == productId)
 
-        if(productById.length) {
+        if(productById) {
             return productById
         }
         console.log(`ERROR: Product with ID ${productId} not found.`)
