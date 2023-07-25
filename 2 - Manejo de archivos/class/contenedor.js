@@ -36,12 +36,15 @@ export default class Contenedor {
     async save(object) {
         try {
             let content = await this.getAll()
-            
+
             if (this.validateMandatoryProperties(object)) {
                 object.id = await this.setId(content)
                 content.push(object)
                 const filePath = process.cwd()
                 await fs.promises.writeFile(`${filePath}/${this.fileName}`, JSON.stringify(content))
+            }
+            else {
+                console.log(`ERROR saving object. Mandatory property missing.`)
             }
             
         } catch (error) {
