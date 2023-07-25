@@ -18,6 +18,6 @@
   "homepage": "https://github.com/FloRusso25/55525-ProgramacionBackend#readme",
   "type": "module",
   "dependencies": {
-    "filesystem": "^1.0.1"
+    "fs": "^0.0.1-security"
   }
 }
