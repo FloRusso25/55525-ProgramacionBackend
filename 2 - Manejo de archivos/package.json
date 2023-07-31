@@ -1,0 +1,23 @@
+{
+  "name": "2---manejo-de-archivos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FloRusso25/55525-ProgramacionBackend.git"
+  },
+  "author": "Florencia Russo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FloRusso25/55525-ProgramacionBackend/issues"
+  },
+  "homepage": "https://github.com/FloRusso25/55525-ProgramacionBackend#readme",
+  "type": "module",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}
