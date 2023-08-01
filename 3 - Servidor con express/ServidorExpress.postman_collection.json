@@ -1,0 +1,25 @@
+{
+	"info": {
+		"_postman_id": "f2f0b92f-1921-4269-8127-a82f9530e94a",
+		"name": "ServidorExpress",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get random product",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
