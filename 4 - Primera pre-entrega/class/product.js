@@ -6,6 +6,7 @@ export default class Product {
         this.filePath = process.cwd()
     }
 
+    //Validates mandatory properties are sent in product object
     validateMandatoryProperties(product) {
         const mandatoryProperties = ['title', 'description', 'code', 'price', 'stock', 'category']
         const availableProperties = ['thumbnail', 'status']
@@ -29,6 +30,7 @@ export default class Product {
 
     }
 
+    //Gets all products stored in file. If a limit is sent, gets all products which ids are lower than limit
     async getAllProducts(limit = undefined) {
         try {
             let content = await fs.promises.readFile(`${this.filePath}/${this.fileName}`, 'utf-8')
@@ -43,6 +45,7 @@ export default class Product {
         }
     }
 
+    //Saves content in file using JSON string format
     async saveContentInFile(fileName, content) {
         try {
             await fs.promises.writeFile(`${this.filePath}/${fileName}`, JSON.stringify(content))
@@ -51,6 +54,7 @@ export default class Product {
         }
     }
 
+    //Adds a product to the file
     async addProduct(product) {
         try {
             let content = await this.getAllProducts()
@@ -78,6 +82,7 @@ export default class Product {
         } 
     }
 
+    //Gets a product that matches ID.
     async getProductById(id) {
         try {
             const content = (await this.getAllProducts()).find(product => product.id == id)
@@ -89,6 +94,7 @@ export default class Product {
         }
     }
 
+    //Deletes a product by ID. 
     async deleteProduct(id) {
         try {
             const content = (await this.getAllProducts()).filter(product => product.id != id)
@@ -103,6 +109,7 @@ export default class Product {
         }
     }
 
+    //Deletes all products saving empty array in file
     async deleteAllProducts() {
         try {
             await this.saveContentInFile(this.fileName, [])
