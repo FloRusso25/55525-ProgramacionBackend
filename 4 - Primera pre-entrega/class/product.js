@@ -7,24 +7,24 @@ export default class Product {
     }
 
     validateMandatoryProperties(product) {
-        const mandatoryProperties = ['title', 'description', 'code', 'price', 'status', 'stock', 'category']
+        const mandatoryProperties = ['title', 'description', 'code', 'price', 'stock', 'category']
+        const availableProperties = ['thumbnail', 'status']
         const productProperties = Object.keys(product)
         let response = {status: 200, value: ""}
 
         mandatoryProperties.forEach(property => {
-            console.log(`OBJECT: ${productProperties}`)
-            console.log(`MANDPROP: ${property}`)
-            console.log(`ISTHERE: ${mandatoryProperties[property] in productProperties}`)
-            if (!(property in productProperties)) {
+            if (!(productProperties.includes(property))) {
                 response.status = 400
                 response.value += `Mandatory property ${property} missing.`
             } 
-            else if (product[property] != null && product[property] != undefined && product[property] != '') {
+            else if (product[property] == null && product[property] == undefined && product[property] == '') {
                 response.status = 400
+
                 response.value += `Mandatory property ${property} cannot be null, undefined or an empty string.`
             }
             
         });
+        
         return response
 
     }
@@ -53,12 +53,15 @@ export default class Product {
 
     async addProduct(product) {
         try {
-            console.log(`ADDBODY: ${JSON.stringify(product)}`)
             let content = await this.getAllProducts()
             const validateProperties = this.validateMandatoryProperties(product)
             if (validateProperties.status == 200) {
+                if ('id' in product) {
+                    console.log(`ERROR: ID property cannot be sent in body.`)
+                    return {status: 400, value: `ERROR: ID property cannot be sent in body.`}
+                }
                 product.id = (content.length ? Math.max(...content.map(item => item.id)) + 1 : 1)
-                product.status ? product.status : true
+                product.status = product.status ? product.status : true
                 content.push(product)
                 await this.saveContentInFile(this.fileName, content)
 
@@ -66,36 +69,37 @@ export default class Product {
             }
             else {
                 console.log(`ERROR adding product. Msg: ${validateProperties.value}`)
-                return {status: 400, value: `ERROR adding product. Mandatory property missing.`}
+                return {status: 400, value: `ERROR adding product. Msg: ${validateProperties.value}`}
             }
             
         } catch (error) {
             console.log(`ERROR adding product. Msg: ${error}`)
-            return {status: 400, value: `ERROR adding product. Msg: ${error}`}
-            
-        }
-        
+            return {status: 400, value: `ERROR adding product. Msg: ${error}`}   
+        } 
     }
 
     async getProductById(id) {
         try {
             const content = (await this.getAllProducts()).find(product => product.id == id)
             
-            return content ? content : null 
+            return content ? {status: 200, value: content} : {status: 404, value: `Product with ID ${id} not found`} 
             
         } catch (error) {
             throw new Error(`ERROR getting item with ID ${id}. Msg: ${error}`)
         }
     }
 
-    async deleteProductById(id) {
+    async deleteProduct(id) {
         try {
             const content = (await this.getAllProducts()).filter(product => product.id != id)
 
             await this.saveContentInFile(this.fileName, content)
 
+            return {status: 200, value: `Product ${id} deleted`}
+
         } catch (error) {
-           throw new Error(`ERROR deleting item with ID ${id}. Msg: ${error}`) 
+           console.log(`ERROR deleting item with ID ${id}. Msg: ${error}`)
+           return {status: 400, value: `ERROR deleting item with ID ${id}. Msg: ${error}`} 
         }
     }
 
@@ -108,5 +112,34 @@ export default class Product {
         }
     }
 
+    //Updates the property with value of a product with matching id  
+    async updateProduct(id, newValues) {
+        try {
+            let oldProduct = await this.getProductById(id)
 
+            if (oldProduct.status == 404) {
+                return {oldProduct}
+            }
+            oldProduct = oldProduct.value
+            Object.keys(newValues).forEach(property => {
+                if (property != 'id') {
+                    
+                    oldProduct[property] = newValues[property]
+                } else {
+                    console.log(`ERROR: ID property cannot be sent in body.`)
+                    return {status: 400, value: `ERROR: ID property cannot be sent in body.`}
+                }
+            });
+                       
+            let products = (await this.getAllProducts()).filter(item => item.id != id)
+            products.push(oldProduct)
+
+            await this.saveContentInFile(this.fileName, products)
+
+            return {status: 200, value: oldProduct}
+        }
+        catch (error) {
+            return {status: 400, error: `there is an invalid property trying to be modified.`}
+        }
+    }
 }

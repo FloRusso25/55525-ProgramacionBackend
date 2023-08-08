@@ -12,43 +12,27 @@ router.get('/', async (req,res) => {
 router.get('/:pid', async (req,res) => {
 
     const productId = await product.getProductById(Number(req.params.pid))
-    if (productId) {
-        res.send(productId)
-    }else {
-        res.status(404).send('Product not found')
-    } 
+
+    res.status(productId.status).send(productId.value)
 })
 
 router.post('/', async (req,res) => {
     const productAdded = await product.addProduct(req.body)
-    if (productAdded.status == 'successful') {
-        res.send(productAdded.value)
-    }
-    else {
-        res.status(400).send(productAdded)
-    }
-    
+
+    res.status(productAdded.status).send(productAdded.value)
 })
 
 router.put('/:pid', async (req,res) => {
     const productChanged = await product.updateProduct(req.params.pid, req.body)
-    if (productChanged.status == 'successful') {
-        res.send(productChanged.value)
-    }else {
-        res.status(400).send(productChanged)
-    }
-    
+
+    res.status(productChanged.status).send(productChanged.value)
 })
 
 router.delete('/:pid', async (req,res) => {
 
     const deleteProduct = await product.deleteProduct(Number(req.params.pid))
     
-    if (deleteProduct.status == 'successful') {
-        res.send(deleteProduct)
-    }else {
-        res.status(400).send(deleteProduct)
-    }
+    res.status(deleteProduct.status).send(deleteProduct.value)
 })
 
 export default router
