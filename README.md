@@ -7,3 +7,4 @@
 - [Servidor con express](./3%20-%20Servidor%20con%20express/README.md) *31/07/2023*
 - [Primera pre-entrega](./4%20-%20Primera%20pre-entrega/README.md) *07/08/2023*
 - [Websockets](./5%20-%20Motores%20de%20plantillas%20y%20Websockets/README.md) *14/08/2023*
+- [Segunda pre-entrega](./6%20-%20Segunda%20pre-entrega/README.md) *04/09/2023*
