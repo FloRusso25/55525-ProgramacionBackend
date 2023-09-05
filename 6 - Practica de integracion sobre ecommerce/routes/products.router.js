@@ -1,9 +1,8 @@
 import {Router} from 'express'
-import Product from '../class/product.js'
+import Product from '../dao/mongoDbManager/product.mongoDb.js'
 
 const router = Router()
-let filePath = `./files/products.json`
-let product = new Product(`${filePath}`)
+let product = new Product()
 
 router.get('/', async (req,res) => {
     res.send(await product.getAllProducts(req.query.limit))

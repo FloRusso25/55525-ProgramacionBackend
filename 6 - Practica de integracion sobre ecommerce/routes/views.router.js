@@ -1,8 +1,8 @@
 import express from 'express'
-import Product from '../class/product.js'
+import Product from '../dao/mongoDbManager/product.mongoDb.js'
 
 const router = express.Router()
-let product = new Product(`/files/products.json`)
+let product = new Product()
 let productsList = []
 
 

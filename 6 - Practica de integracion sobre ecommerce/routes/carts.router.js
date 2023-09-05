@@ -1,17 +1,16 @@
 import {Router} from 'express'
 import Cart from '../dao/mongoDbManager/carts.mongoDb.js'
-import Product from '../dao/mongoDbManager/product.js'
+import Product from '../dao/mongoDbManager/product.mongoDb.js'
 
 const router = Router()
 
-let filePathCart = `./files/carts.json`
-let filePathProduct = `./files/products.json`
-let cart = new Cart(`${filePathCart}`)
-let product = new Product(`${filePathProduct}`)
+
+let cart = new Cart()
+let product = new Product()
 
 router.get('/:cid', async (req,res) => {
     const getCart = await cart.getCartById(Number(req.params.cid))
-    console.log(`CARTRES: ${JSON.stringify(getCart)}`)
+
     getCart.value = (getCart.status == 200) ? getCart.value.products : getCart.value
     
     res.status(getCart.status).send(getCart.value)

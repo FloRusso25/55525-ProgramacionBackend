@@ -100,7 +100,7 @@ export default class Product {
     //Deletes all products saving empty array in file
     async deleteAllProducts() {
         try {
-            await this.saveContentInFile(this.fileName, [])
+            await this.deleteMany({})
 
         } catch (error) {
            throw new Error(`ERROR deleting item with ID ${id}. Msg: ${error}`) 
@@ -126,10 +126,7 @@ export default class Product {
                 }
             });
                        
-            let products = (await this.getAllProducts()).filter(item => item.id != id)
-            products.push(oldProduct)
-
-            await this.saveContentInFile(this.fileName, products)
+            oldProduct = await productModel.findOneAndUpdate({_id: `${oldProduct._id}`}, oldProduct)
 
             return {status: 200, value: oldProduct}
         }
