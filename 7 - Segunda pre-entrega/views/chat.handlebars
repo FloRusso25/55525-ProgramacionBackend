@@ -1,0 +1,15 @@
+{{> chat }}
+
+<div>    
+    <h1>Chat</h1>
+    <h1></h1>
+    <form action="/chat" method="POST" id="chatForm" onsubmit="addLiveProduct">
+      Email: <input type="text" name="email">
+      Message: <textarea id="message" name="messagge" rows="4" cols="50" form="chatForm">Write your message here...</textarea>
+      <button>Send</button>
+    </form>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>
