@@ -7,3 +7,4 @@
 - [Servidor con express](./3%20-%20Servidor%20con%20express/README.md) *31/07/2023*
 - [Primera pre-entrega](./4%20-%20Primera%20pre-entrega/README.md) *07/08/2023*
 - [Websockets](./5%20-%20Motores%20de%20plantillas%20y%20Websockets/README.md) *14/08/2023*
+- [Practica de integracion sobre ecommerce](./6%20-%20Practica%20de%20integracion%20sobre%20ecommerce/README.md) *04/09/2023*
